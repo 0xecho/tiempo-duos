@@ -7,5 +7,7 @@ WORKDIR /app/holoviz_tutorial
 RUN ["conda", "run", "--no-capture-output", "-n", "project", "pip", "install", "jupyterlab", "panel", "pandas"]
 EXPOSE 8888
 COPY ./main.py ./
-ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "project", "panel", "serve", "main.py", "--address", "0.0.0.0", "--port", "80", "--liveness", "--liveness-endpoint", "healthcheck"]
+# ENTRYPOINT ["conda", "run", "--no-capture-output", "-n", "project", "panel", "serve", "main.py", "--address", "0.0.0.0", "--port", "80", "--liveness", "--liveness-endpoint", "healthcheck"]
+ENTRYPOINT [ "bash", "-c", "conda run --no-capture-output -n project panel serve main.py --address 0.0.0.0 --port $PORT --liveness --liveness-endpoint healthcheck" ]
+
 
